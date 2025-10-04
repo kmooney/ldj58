@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bd0mvk5xo06kk"]
+
+[ext_resource type="Script" uid="uid://cp1us1euv6njg" path="res://butterfly.gd" id="1_fn0p1"]
+[ext_resource type="PackedScene" uid="uid://byp6q1gu50acm" path="res://butterfly_wing.tscn" id="1_l7i6p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fn0p1"]
+albedo_color = Color(0.2147026, 0.21470255, 0.21470255, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tstti"]
+material = SubResource("StandardMaterial3D_fn0p1")
+radius = 0.05
+height = 0.25
+radial_segments = 16
+rings = 3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l7i6p"]
+size = Vector3(1, 0.1060791, 1)
+
+[node name="Butterfly" type="CharacterBody3D"]
+script = ExtResource("1_fn0p1")
+
+[node name="torso" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_tstti")
+
+[node name="ButterflyWing" parent="." instance=ExtResource("1_l7i6p")]
+transform = Transform3D(0.38302228, -0.32139382, 0, 0.32139382, 0.38302228, 0, 0, 0, 0.5, 0, 0, 0.046)
+
+[node name="ButterflyWing2" parent="." instance=ExtResource("1_l7i6p")]
+transform = Transform3D(-0.38302207, -0.3213937, 0, 0.3213937, -0.38302207, 0, 0, 0, 0.5, 0, 0, 0.046)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.004699707, 0)
+shape = SubResource("BoxShape3D_l7i6p")

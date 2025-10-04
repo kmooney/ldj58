@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://byp6q1gu50acm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8bapy"]
+resource_local_to_scene = true
+
+[node name="ButterflyWing" type="Node3D"]
+
+[node name="wing_mesh" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14815366, 0, 0)
+material_override = SubResource("StandardMaterial3D_8bapy")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="wing_mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.47941452, 0, -0.37730616)
+height = 0.05
+sides = 16
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="wing_mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3840044, 0, 0.18009424)
+radius = 0.3
+height = 0.05
+sides = 16
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="wing_mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20238715, 0, -0.1153034)
+radius = 0.3
+height = 0.05
+sides = 16
