@@ -30,7 +30,7 @@ radius = 1.0
 radial_steps = 16
 cap_top = false
 
-[node name="Net" type="CharacterBody3D"]
+[node name="Net" type="Area3D"]
 
 [node name="Ring" type="MeshInstance3D" parent="."]
 mesh = SubResource("TorusMesh_a7yl7")

@@ -16,7 +16,7 @@ rings = 3
 [sub_resource type="BoxShape3D" id="BoxShape3D_l7i6p"]
 size = Vector3(1, 0.1060791, 1)
 
-[node name="Butterfly" type="CharacterBody3D"]
+[node name="Butterfly" type="Area3D"]
 script = ExtResource("1_fn0p1")
 
 [node name="torso" type="MeshInstance3D" parent="."]

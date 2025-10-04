@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://vlmt1iuc45ki"]
+[gd_scene load_steps=11 format=3 uid="uid://vlmt1iuc45ki"]
 
 [ext_resource type="PackedScene" uid="uid://bd0mvk5xo06kk" path="res://butterfly.tscn" id="1_pq8q7"]
 [ext_resource type="Script" uid="uid://bn1xvu1mlfc0t" path="res://root.gd" id="1_vvh5c"]
@@ -17,58 +17,6 @@ size = Vector2(100, 100)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_pyidc"]
 
-[sub_resource type="Animation" id="Animation_vvh5c"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_28aoi"]
-resource_name = "ready"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_pyidc"]
-resource_name = "swipe"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.23333335),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 1.8096098)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_28aoi"]
-_data = {
-&"RESET": SubResource("Animation_vvh5c"),
-&"ready": SubResource("Animation_28aoi"),
-&"swipe": SubResource("Animation_pyidc")
-}
-
 [node name="root" type="Node3D"]
 script = ExtResource("1_vvh5c")
 
@@ -82,7 +30,7 @@ mesh = SubResource("PlaneMesh_pq8q7")
 shape = SubResource("WorldBoundaryShape3D_pyidc")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.9989691, 0.045397818, 0, -0.045397818, 0.9989691, 0, 4.011506, 8.417046)
+transform = Transform3D(1, 0, 0, 0, 0.8759617, 0.4823806, 0, -0.4823806, 0.8759617, 0, 7.7777085, 10.013793)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.88644606, -0.08824905, 0.45434076, -0.3776179, 0.4297045, 0.8202189, -0.26761582, -0.89864695, 0.34758547, 3.5999293, 5.560861, 0)
@@ -109,16 +57,9 @@ transform = Transform3D(0.6729996, -0.41460857, -0.61251235, -3.6937837e-09, 0.8
 wing_color = Color(0.54384506, 0.7948984, 0.711413, 1)
 
 [node name="NetArm" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.585475)
 
 [node name="Net" parent="NetArm" instance=ExtResource("2_pyidc")]
-transform = Transform3D(-4.3711392e-08, -0.77051336, -0.63742405, 0, 0.63742405, -0.77051336, 1.0000001, -3.3680205e-08, -2.7862692e-08, 2.7206178, 3.1020367, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../NetArm/Net")
-libraries = {
-&"": SubResource("AnimationLibrary_28aoi")
-}
+transform = Transform3D(-1.0000001, -6.736041e-08, -5.5725383e-08, 0, 0.63742405, -0.77051336, 8.7422784e-08, -0.77051336, -0.63742405, 0, 3.102, 2.5214543)
 
 [node name="forest" type="Node3D" parent="."]
 
@@ -182,4 +123,4 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 8.948476, -6.2145557, -37.
 [node name="tree_pineTallB5" parent="forest" instance=ExtResource("8_qw60f")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -15.437989, -8.463745, -21.335293)
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="area_shape_entered" from="NetArm/Net" to="." method="_on_net_area_shape_entered"]
