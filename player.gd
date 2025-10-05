@@ -11,6 +11,9 @@ var speed = SPEED
 @onready var camera = $Camera3D
 
 func _ready():
+	floor_max_angle = deg_to_rad(70)
+	floor_snap_length = 0.5
+	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event):
@@ -46,7 +49,7 @@ func _physics_process(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
-	
+			
 	move_and_slide()
 	
 	if is_on_floor() and velocity.length() > 0.1:

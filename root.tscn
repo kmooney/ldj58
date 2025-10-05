@@ -1,22 +1,20 @@
-[gd_scene load_steps=16 format=3 uid="uid://vlmt1iuc45ki"]
+[gd_scene load_steps=13 format=3 uid="uid://vlmt1iuc45ki"]
 
-[ext_resource type="PackedScene" uid="uid://bd0mvk5xo06kk" path="res://butterfly.tscn" id="1_pq8q7"]
 [ext_resource type="Script" uid="uid://bn1xvu1mlfc0t" path="res://root.gd" id="1_vvh5c"]
 [ext_resource type="PackedScene" uid="uid://cg1okmmf1j0il" path="res://net.tscn" id="2_pyidc"]
-[ext_resource type="PackedScene" uid="uid://dv6pqckcr0c56" path="res://nature/tree_pineGroundB.glb" id="5_huihk"]
-[ext_resource type="PackedScene" uid="uid://b7ptnioqfps0n" path="res://nature/tree_pineRoundC.glb" id="6_tw3kd"]
 [ext_resource type="Script" uid="uid://xh8xvohd03k7" path="res://player.gd" id="7_bf3um"]
-[ext_resource type="PackedScene" uid="uid://bv8qwj6ktvn61" path="res://nature/tree_pineSmallA.glb" id="7_gd4vy"]
-[ext_resource type="PackedScene" uid="uid://jn1klcq6xwwv" path="res://nature/tree_pineTallB.glb" id="8_qw60f"]
+[ext_resource type="Script" uid="uid://7nb0r68tdh06" path="res://forest_generator.gd" id="9_forest"]
+[ext_resource type="Script" uid="uid://e1c0bjuwrau3" path="res://butterfly_spawner.gd" id="10_spawner"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vho56"]
 albedo_color = Color(0.39462346, 0.2576847, 0.05060967, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pq8q7"]
 material = SubResource("StandardMaterial3D_vho56")
-size = Vector2(100, 100)
+size = Vector2(1000, 1000)
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_pyidc"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_pyidc"]
+size = Vector3(2000, 1, 2000)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vyht1"]
 
@@ -49,93 +47,18 @@ transform = Transform3D(0.9999997, 0, 0.0007853981, 0, 1, 0, -0.0007853981, 0, 0
 mesh = SubResource("PlaneMesh_pq8q7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
-shape = SubResource("WorldBoundaryShape3D_pyidc")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_pyidc")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.88644606, -0.08824905, 0.45434076, -0.3776179, 0.4297045, 0.8202189, -0.26761582, -0.89864695, 0.34758547, 3.5999293, 5.560861, 0)
 shadow_enabled = true
 
-[node name="Butterfly" parent="." instance=ExtResource("1_pq8q7")]
-transform = Transform3D(1, 0, 0, 0, 0.828119, -0.5605523, 0, 0.5605523, 0.828119, 0, 4.7935266, 0)
-wing_color = Color(0.65341854, 0.3907194, 0.863884, 1)
+[node name="ForestGenerator" type="Node3D" parent="."]
+script = ExtResource("9_forest")
 
-[node name="Butterfly2" parent="." instance=ExtResource("1_pq8q7")]
-transform = Transform3D(-0.12978205, 0.55581146, 0.8211152, 0, 0.828119, -0.5605523, -0.9915425, -0.07274963, -0.10747498, -4.6956215, 3.6922612, 1.7696972)
-wing_color = Color(0.18809971, 0.8247265, 0.5407835, 1)
-
-[node name="Butterfly3" parent="." instance=ExtResource("1_pq8q7")]
-transform = Transform3D(0.933167, 0.20148668, 0.29766163, -3.6937837e-09, 0.828119, -0.5605523, -0.35944307, 0.52308893, 0.7727733, -2.7207928, 4.385563, -5.3652577)
-wing_color = Color(0.08447579, 0.34111455, 0.7493064, 1)
-
-[node name="Butterfly4" parent="." instance=ExtResource("1_pq8q7")]
-transform = Transform3D(0.6729996, -0.41460857, -0.61251235, -3.6937837e-09, 0.828119, -0.5605523, 0.73964286, 0.37725154, 0.5573237, 4.0949736, 4.00104, -2.0464005)
-wing_color = Color(1, 0.92986554, 0.63943905, 1)
-
-[node name="Butterfly5" parent="." instance=ExtResource("1_pq8q7")]
-transform = Transform3D(0.6729996, -0.41460857, -0.61251235, -3.6937837e-09, 0.828119, -0.5605523, 0.73964286, 0.37725154, 0.5573237, 5.4378324, 4.063057, 0.7645092)
-wing_color = Color(0.54384506, 0.7948984, 0.711413, 1)
-
-[node name="forest" type="Node3D" parent="."]
-
-[node name="tree_pineGroundB2" parent="forest" instance=ExtResource("5_huihk")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -17.77435, 1.7610242, -5.714593)
-
-[node name="tree_pineGroundB3" parent="forest" instance=ExtResource("5_huihk")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 7.5508947, 1.5823791, -16.21785)
-
-[node name="tree_pineGroundB4" parent="forest" instance=ExtResource("5_huihk")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 19.047565, 1.886687, -4.932352)
-
-[node name="tree_pineGroundB5" parent="forest" instance=ExtResource("5_huihk")]
-transform = Transform3D(-1.8021013, 0, -9.836282, 0, 10, 0, 9.836282, 0, -1.8021013, 16.37888, 1.886687, -8.845074)
-
-[node name="tree_pineGroundB6" parent="forest" instance=ExtResource("5_huihk")]
-transform = Transform3D(-1.8021013, 0, -9.836282, 0, 10, 0, 9.836282, 0, -1.8021013, 23.03528, 1.886687, -11.001987)
-
-[node name="tree_pineRoundC2" parent="forest" instance=ExtResource("6_tw3kd")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -8.13801, 0.05, -25.491665)
-
-[node name="tree_pineRoundC5" parent="forest" instance=ExtResource("6_tw3kd")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -19.521488, 0.05, -13.981615)
-
-[node name="tree_pineRoundC4" parent="forest" instance=ExtResource("6_tw3kd")]
-transform = Transform3D(7.367347, 0, -6.761819, 0, 10, 0, 6.761819, 0, 7.367347, -14.250235, 0.05, -29.667057)
-
-[node name="tree_pineRoundC6" parent="forest" instance=ExtResource("6_tw3kd")]
-transform = Transform3D(7.367347, 0, -6.761819, 0, 10, 0, 6.761819, 0, 7.367347, -4.598138, 0.05, -19.165545)
-
-[node name="tree_pineRoundC7" parent="forest" instance=ExtResource("6_tw3kd")]
-transform = Transform3D(7.367347, 0, -6.761819, 0, 10, 0, 6.761819, 0, 7.367347, -20.629993, 0.05, -10.307705)
-
-[node name="tree_pineRoundC3" parent="forest" instance=ExtResource("6_tw3kd")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 12.633871, 0.05, -19.062634)
-
-[node name="tree_pineSmallA2" parent="forest" instance=ExtResource("7_gd4vy")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -15.218038, 0.12395696, -13.392681)
-
-[node name="tree_pineSmallA3" parent="forest" instance=ExtResource("7_gd4vy")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6466045, 0.05, -19.095314)
-
-[node name="tree_pineSmallA4" parent="forest" instance=ExtResource("7_gd4vy")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 10.480413, 0.05, -10.161591)
-
-[node name="tree_pineSmallA6" parent="forest" instance=ExtResource("7_gd4vy")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 15.338284, 0.05, -12.214933)
-
-[node name="tree_pineSmallA5" parent="forest" instance=ExtResource("7_gd4vy")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -1.058588, 0.05, -23.714174)
-
-[node name="tree_pineTallB2" parent="forest" instance=ExtResource("8_qw60f")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -6.0248737, -3.3571017, -31.761637)
-
-[node name="tree_pineTallB3" parent="forest" instance=ExtResource("8_qw60f")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6771383, -7.3798504, -29.716124)
-
-[node name="tree_pineTallB4" parent="forest" instance=ExtResource("8_qw60f")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 8.948476, -6.2145557, -37.147163)
-
-[node name="tree_pineTallB5" parent="forest" instance=ExtResource("8_qw60f")]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -15.437989, -8.463745, -21.335293)
+[node name="ButterflySpawner" type="Node3D" parent="."]
+script = ExtResource("10_spawner")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 script = ExtResource("7_bf3um")
