@@ -24,6 +24,7 @@ func collision_wrap(glb_scene):
 	glb_instance.owner = static_body
 	static_body.add_child(collision)
 	collision.owner = static_body
+	
 	var packed_scene = PackedScene.new()
 	packed_scene.pack(static_body)
 	return packed_scene

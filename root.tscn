@@ -59,6 +59,7 @@ script = ExtResource("9_forest")
 
 [node name="ButterflySpawner" type="Node3D" parent="."]
 script = ExtResource("10_spawner")
+max_butterflies = 30
 
 [node name="Player" type="CharacterBody3D" parent="."]
 script = ExtResource("7_bf3um")
@@ -69,7 +70,7 @@ shape = SubResource("CapsuleShape3D_vyht1")
 [node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 environment = SubResource("Environment_huihk")
-fov = 47.4
+fov = 80.2
 near = 0.008
 
 [node name="NetArm" type="Node3D" parent="Player/Camera3D"]
