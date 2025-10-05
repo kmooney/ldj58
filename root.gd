@@ -10,29 +10,25 @@ var net_plane: Plane
 var caught_bug: Node3D
 
 func _ready():
-	start_net_rot = $NetArm.rotation
+	start_net_rot = $Player/Camera3D/NetArm.rotation
 	swiping = false
 	swipe_ready = true
-	net_plane = Plane(Vector3(0,1,0),$NetArm/Net.global_position)
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	net_plane = Plane(Vector3(0,1,0),$Player/Camera3D/NetArm/Net.global_position)
 	
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.keycode == KEY_SPACE and swipe_ready:
-			swipe()
-		elif event.keycode == KEY_ESCAPE:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if Input.is_action_just_pressed('swipe') and swipe_ready:
+		swipe()
 				
 func swipe():
 	swiping = true
 	swipe_ready = false
 	var tween = get_tree().create_tween()
-	tween.tween_property($NetArm,"rotation",Vector3(deg_to_rad(-90),0,0),0.15)
+	tween.tween_property($Player/Camera3D/NetArm,"rotation",Vector3(deg_to_rad(-120),0,0),0.15)
 	tween.tween_callback(self.finish_swipe)
 	
 func finish_swipe():
 	var tween = get_tree().create_tween()
-	tween.tween_property($NetArm,"rotation",start_net_rot,0.5)
+	tween.tween_property($Player/Camera3D/NetArm,"rotation",start_net_rot,0.5)
 	tween.tween_callback(self.reset_swipe)
 	swiping = false
 	if caught_bug:
@@ -52,8 +48,5 @@ func _process(delta:float):
 	var ray_origin: Vector3 = camera.project_ray_origin(mouse_pos)
 	var ray_normal: Vector3 = camera.project_ray_normal(mouse_pos)
 	var intersection = net_plane.intersects_ray(ray_origin,ray_normal)
-	if intersection:
-		$NetArm.position.x = intersection.x
-		$NetArm.position.z = intersection.z
 	if caught_bug:
-		caught_bug.global_position = $NetArm/Net/Ring.global_position
+		caught_bug.global_position = $Player/Camera3D/NetArm/Net/Ring.global_position

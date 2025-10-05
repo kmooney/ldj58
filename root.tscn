@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://vlmt1iuc45ki"]
+[gd_scene load_steps=16 format=3 uid="uid://vlmt1iuc45ki"]
 
 [ext_resource type="PackedScene" uid="uid://bd0mvk5xo06kk" path="res://butterfly.tscn" id="1_pq8q7"]
 [ext_resource type="Script" uid="uid://bn1xvu1mlfc0t" path="res://root.gd" id="1_vvh5c"]
 [ext_resource type="PackedScene" uid="uid://cg1okmmf1j0il" path="res://net.tscn" id="2_pyidc"]
 [ext_resource type="PackedScene" uid="uid://dv6pqckcr0c56" path="res://nature/tree_pineGroundB.glb" id="5_huihk"]
 [ext_resource type="PackedScene" uid="uid://b7ptnioqfps0n" path="res://nature/tree_pineRoundC.glb" id="6_tw3kd"]
+[ext_resource type="Script" uid="uid://xh8xvohd03k7" path="res://player.gd" id="7_bf3um"]
 [ext_resource type="PackedScene" uid="uid://bv8qwj6ktvn61" path="res://nature/tree_pineSmallA.glb" id="7_gd4vy"]
 [ext_resource type="PackedScene" uid="uid://jn1klcq6xwwv" path="res://nature/tree_pineTallB.glb" id="8_qw60f"]
 
@@ -17,6 +18,27 @@ size = Vector2(100, 100)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_pyidc"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vyht1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vyht1"]
+sky_top_color = Color(0.45296347, 0.38222435, 0.74131703, 1)
+sky_horizon_color = Color(0.84733874, 0.5936106, 0.34058902, 1)
+sky_curve = 0.130583
+sun_angle_max = 41.39
+sun_curve = 0.18467161
+energy_multiplier = 5.52
+
+[sub_resource type="Sky" id="Sky_bf3um"]
+sky_material = SubResource("ProceduralSkyMaterial_vyht1")
+
+[sub_resource type="Environment" id="Environment_huihk"]
+background_mode = 2
+background_energy_multiplier = 0.48
+sky = SubResource("Sky_bf3um")
+ambient_light_color = Color(0.827451, 1, 0, 1)
+ambient_light_energy = 4.36
+fog_light_energy = 3.41
+
 [node name="root" type="Node3D"]
 script = ExtResource("1_vvh5c")
 
@@ -28,9 +50,6 @@ mesh = SubResource("PlaneMesh_pq8q7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
 shape = SubResource("WorldBoundaryShape3D_pyidc")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.8759617, 0.4823806, 0, -0.4823806, 0.8759617, 0, 7.7777085, 10.013793)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.88644606, -0.08824905, 0.45434076, -0.3776179, 0.4297045, 0.8202189, -0.26761582, -0.89864695, 0.34758547, 3.5999293, 5.560861, 0)
@@ -55,11 +74,6 @@ wing_color = Color(1, 0.92986554, 0.63943905, 1)
 [node name="Butterfly5" parent="." instance=ExtResource("1_pq8q7")]
 transform = Transform3D(0.6729996, -0.41460857, -0.61251235, -3.6937837e-09, 0.828119, -0.5605523, 0.73964286, 0.37725154, 0.5573237, 5.4378324, 4.063057, 0.7645092)
 wing_color = Color(0.54384506, 0.7948984, 0.711413, 1)
-
-[node name="NetArm" type="Node3D" parent="."]
-
-[node name="Net" parent="NetArm" instance=ExtResource("2_pyidc")]
-transform = Transform3D(-1.0000001, -6.736041e-08, -5.5725383e-08, 0, 0.63742405, -0.77051336, 8.7422784e-08, -0.77051336, -0.63742405, 0, 3.102, 2.5214543)
 
 [node name="forest" type="Node3D" parent="."]
 
@@ -123,4 +137,22 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 8.948476, -6.2145557, -37.
 [node name="tree_pineTallB5" parent="forest" instance=ExtResource("8_qw60f")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -15.437989, -8.463745, -21.335293)
 
-[connection signal="area_shape_entered" from="NetArm/Net" to="." method="_on_net_area_shape_entered"]
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("7_bf3um")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_vyht1")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+environment = SubResource("Environment_huihk")
+fov = 47.4
+near = 0.008
+
+[node name="NetArm" type="Node3D" parent="Player/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, -1, -3)
+
+[node name="Net" parent="Player/Camera3D/NetArm" instance=ExtResource("2_pyidc")]
+transform = Transform3D(-1.0000001, -6.736041e-08, -5.5725383e-08, 0, 0.63742405, -0.77051336, 8.7422784e-08, -0.77051336, -0.63742405, 0, 3.102, 2.5214543)
+
+[connection signal="area_shape_entered" from="Player/Camera3D/NetArm/Net" to="." method="_on_net_area_shape_entered"]
