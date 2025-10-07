@@ -13,7 +13,10 @@ func _ready():
 	start_net_rot = $Player/Camera3D/NetArm.rotation
 	swiping = false
 	swipe_ready = true
-	net_plane = Plane(Vector3(0,1,0),$Player/Camera3D/NetArm/Net.global_position)
+	net_plane = Plane(
+		Vector3(0,1,0),
+		$Player/Camera3D/NetArm/Net.global_position
+	)
 	
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed('swipe') and swipe_ready:
@@ -23,7 +26,12 @@ func swipe():
 	swiping = true
 	swipe_ready = false
 	var tween = get_tree().create_tween()
-	tween.tween_property($Player/Camera3D/NetArm,"rotation",Vector3(deg_to_rad(-120),0,0),0.15)
+	tween.tween_property(
+		$Player/Camera3D/NetArm,
+		"rotation",
+		Vector3(0,0,deg_to_rad(-160.0)),
+		0.15
+	)
 	tween.tween_callback(self.finish_swipe)
 	
 func finish_swipe():

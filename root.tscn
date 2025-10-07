@@ -43,7 +43,7 @@ script = ExtResource("1_vvh5c")
 [node name="ground" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ground"]
-transform = Transform3D(0.9999997, 0, 0.0007853981, 0, 1, 0, -0.0007853981, 0, 0.9999997, 0, 0, 0)
+transform = Transform3D(0.9999997, 0, 0.0007853981, 0, 1, 0, -0.0007853981, 0, 0.9999997, -0.0012979507, -0.006042838, -0.0018634796)
 mesh = SubResource("PlaneMesh_pq8q7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
@@ -62,21 +62,22 @@ script = ExtResource("10_spawner")
 max_butterflies = 30
 
 [node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0920775, 0)
 script = ExtResource("7_bf3um")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_vyht1")
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.013015747, 1.1000001, 0)
 environment = SubResource("Environment_huihk")
 fov = 80.2
 near = 0.008
 
 [node name="NetArm" type="Node3D" parent="Player/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, -1, -3)
+transform = Transform3D(-0.9144138, -0.17085429, 0.36695537, -0.37440068, 0.012420143, -0.9271838, 0.15385571, -0.9852179, -0.07532511, -0.13576937, -0.9952183, 0.18069267)
 
 [node name="Net" parent="Player/Camera3D/NetArm" instance=ExtResource("2_pyidc")]
-transform = Transform3D(-1.0000001, -6.736041e-08, -5.5725383e-08, 0, 0.63742405, -0.77051336, 8.7422784e-08, -0.77051336, -0.63742405, 0, 3.102, 2.5214543)
+transform = Transform3D(1.0000001, 1.4901161e-08, 9.313226e-10, 0, 1, 7.450581e-09, 0, -1.4901161e-08, 1, 0.59, 2, -4)
 
 [connection signal="area_shape_entered" from="Player/Camera3D/NetArm/Net" to="." method="_on_net_area_shape_entered"]
